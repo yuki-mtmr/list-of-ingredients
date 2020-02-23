@@ -8,9 +8,10 @@ class DrinksController < ApplicationController
     render json: @drinks
   end
 
-  # GET /drinks/1
+  # GET /drinks/:id
   def show
-    render json: @drink
+    @drink = Drink.find(params[:id])
+    render json: @drink.to_json(:include => { :ingredients => { :only => [:id, :description] }})
   end
 
   # POST /drinks
